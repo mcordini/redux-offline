@@ -57,7 +57,8 @@ const offlineUpdater = function offlineUpdater(
   }
 
   if (action.type === PERSIST_REHYDRATE) {
-    return { ...state, busy: false };
+    if (action.payload.offline) delete action.payload.offline.online;
+    return { ...state, ...action.payload.offline, busy: false };
   }
 
   if (action.type === OFFLINE_SCHEDULE_RETRY) {
